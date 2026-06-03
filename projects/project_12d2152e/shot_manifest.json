@@ -1,0 +1,92 @@
+[
+  {
+    "shot_id": "shot_001",
+    "scene_id": "SC001",
+    "order": 1,
+    "script_text": "A detective enters a room.",
+    "description": "A low-angle shot of a heavy, ornate wooden door, slightly ajar, casting a long, sharp shadow across a dimly lit hallway. Rain streaks down a grimy windowpane in the background. The only sound is distant thunder.",
+    "characters": [],
+    "location": "Hallway outside a room",
+    "visual_style": "noir",
+    "duration_sec": 5,
+    "prompt": "noir. A low-angle shot of a heavy, ornate wooden door, slightly ajar, casting a long, sharp shadow across a dimly lit hallway. Rain streaks down a grimy windowpane in the background. The only sound is distant thunder.. Characters: none specified. Location: Hallway outside a room. Continuity: previous context: Start of video; next context: A close-up on a gloved hand pushing the door open further. The silhouette of a fedora-clad figure is visible in the doorway, framed by the harsh, high-contrast light from the hallway, obscuring their face. Smoke curls from a cigarette held between two fingers.. Duration: 5 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_001_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "preserved",
+    "continuity": {
+      "entry_context": "Start of video",
+      "exit_context": "A close-up on a gloved hand pushing the door open further. The silhouette of a fedora-clad figure is visible in the doorway, framed by the harsh, high-contrast light from the hallway, obscuring their face. Smoke curls from a cigarette held between two fingers."
+    }
+  },
+  {
+    "shot_id": "shot_002",
+    "scene_id": "SC001",
+    "order": 2,
+    "script_text": "A detective enters a room.",
+    "description": "A close-up on a gloved hand pushing the door open further. The silhouette of a fedora-clad figure is visible in the doorway, framed by the harsh, high-contrast light from the hallway, obscuring their face. Smoke curls from a cigarette held between two fingers.",
+    "characters": [
+      "Detective"
+    ],
+    "location": "Doorway",
+    "visual_style": "noir",
+    "duration_sec": 6,
+    "prompt": "noir. A close-up on a gloved hand pushing the door open further. The silhouette of a fedora-clad figure is visible in the doorway, framed by the harsh, high-contrast light from the hallway, obscuring their face. Smoke curls from a cigarette held between two fingers.. Characters: Detective. Location: Doorway. Continuity: previous context: A low-angle shot of a heavy, ornate wooden door, slightly ajar, casting a long, sharp shadow across a dimly lit hallway. Rain streaks down a grimy windowpane in the background. The only sound is distant thunder.; next context: A medium shot from inside the room, looking towards the doorway. The detective, a trench coat pulled tight, steps into the dimly lit room. His face is mostly obscured by the deep shadow of his fedora, but a glint in his eye catches the faint light from a Venetian blind. Dust motes dance in the single shaft of light.. Duration: 6 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_002_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "preserved",
+    "continuity": {
+      "entry_context": "A low-angle shot of a heavy, ornate wooden door, slightly ajar, casting a long, sharp shadow across a dimly lit hallway. Rain streaks down a grimy windowpane in the background. The only sound is distant thunder.",
+      "exit_context": "A medium shot from inside the room, looking towards the doorway. The detective, a trench coat pulled tight, steps into the dimly lit room. His face is mostly obscured by the deep shadow of his fedora, but a glint in his eye catches the faint light from a Venetian blind. Dust motes dance in the single shaft of light."
+    }
+  },
+  {
+    "shot_id": "shot_003",
+    "scene_id": "SC001",
+    "order": 3,
+    "script_text": "A detective enters a room.",
+    "description": "A medium shot from inside the room, looking towards the doorway. The detective, a trench coat pulled tight, steps into the dimly lit room. His face is mostly obscured by the deep shadow of his fedora, but a glint in his eye catches the faint light from a Venetian blind. Dust motes dance in the single shaft of light.",
+    "characters": [
+      "Detective"
+    ],
+    "location": "Inside the room, near the doorway",
+    "visual_style": "noir",
+    "duration_sec": 7,
+    "prompt": "noir. A medium shot from inside the room, looking towards the doorway. The detective, a trench coat pulled tight, steps into the dimly lit room. His face is mostly obscured by the deep shadow of his fedora, but a glint in his eye catches the faint light from a Venetian blind. Dust motes dance in the single shaft of light.. Characters: Detective. Location: Inside the room, near the doorway. Continuity: previous context: A close-up on a gloved hand pushing the door open further. The silhouette of a fedora-clad figure is visible in the doorway, framed by the harsh, high-contrast light from the hallway, obscuring their face. Smoke curls from a cigarette held between two fingers.; next context: A low-angle close-up on the detective's worn leather shoes as they scuff lightly on a dusty, patterned rug. The camera slowly pans up to reveal a cluttered desk with an overturned lamp and scattered papers, bathed in the stark contrast of light and shadow, hinting at a struggle.. Duration: 7 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_003_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "preserved",
+    "continuity": {
+      "entry_context": "A close-up on a gloved hand pushing the door open further. The silhouette of a fedora-clad figure is visible in the doorway, framed by the harsh, high-contrast light from the hallway, obscuring their face. Smoke curls from a cigarette held between two fingers.",
+      "exit_context": "A low-angle close-up on the detective's worn leather shoes as they scuff lightly on a dusty, patterned rug. The camera slowly pans up to reveal a cluttered desk with an overturned lamp and scattered papers, bathed in the stark contrast of light and shadow, hinting at a struggle."
+    }
+  },
+  {
+    "shot_id": "shot_004",
+    "scene_id": "SC001",
+    "order": 4,
+    "script_text": "A detective enters a room.",
+    "description": "A low-angle close-up on the detective's worn leather shoes as they scuff lightly on a dusty, patterned rug. The camera slowly pans up to reveal a cluttered desk with an overturned lamp and scattered papers, bathed in the stark contrast of light and shadow, hinting at a struggle.",
+    "characters": [
+      "Detective"
+    ],
+    "location": "Inside the room",
+    "visual_style": "noir",
+    "duration_sec": 8,
+    "prompt": "noir. A low-angle close-up on the detective's worn leather shoes as they scuff lightly on a dusty, patterned rug. The camera slowly pans up to reveal a cluttered desk with an overturned lamp and scattered papers, bathed in the stark contrast of light and shadow, hinting at a struggle.. Characters: Detective. Location: Inside the room. Continuity: previous context: A medium shot from inside the room, looking towards the doorway. The detective, a trench coat pulled tight, steps into the dimly lit room. His face is mostly obscured by the deep shadow of his fedora, but a glint in his eye catches the faint light from a Venetian blind. Dust motes dance in the single shaft of light.; next context: End of video. Duration: 8 seconds. Camera: cinematic, stable, coherent, smooth motion. Apply this user edit only where relevant: Make the file red. Preserve the same characters, location, camera language, duration, and visual continuity. Previous shot: A medium shot from inside the room, looking towards the doorway. The detective, a trench coat pulled tight, steps into the dimly lit room. His face is mostly obscured by the deep shadow of his fedora, but a glint in his eye catches the faint light from a Venetian blind. Dust motes dance in the single shaft of light.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_004_v2.mp4",
+    "version": 2,
+    "status": "complete",
+    "last_action": "regenerated",
+    "continuity": {
+      "entry_context": "A medium shot from inside the room, looking towards the doorway. The detective, a trench coat pulled tight, steps into the dimly lit room. His face is mostly obscured by the deep shadow of his fedora, but a glint in his eye catches the faint light from a Venetian blind. Dust motes dance in the single shaft of light.",
+      "exit_context": "End of video"
+    }
+  }
+]

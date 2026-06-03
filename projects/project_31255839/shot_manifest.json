@@ -1,0 +1,94 @@
+[
+  {
+    "shot_id": "shot_001",
+    "scene_id": "scene_001",
+    "order": 1,
+    "script_text": "A detective enters an old archive room.",
+    "description": "A detective enters an old archive room",
+    "characters": [
+      "detective"
+    ],
+    "location": "archive room",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 4,
+    "prompt": "cinematic noir, moody lighting. A detective enters an old archive room. Characters: detective. Location: archive room. Continuity: previous context: Start of video; next context: Dust floats in the air as she walks between shelves. Duration: 4 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_001_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "generated",
+    "continuity": {
+      "entry_context": "Start of video",
+      "exit_context": "Dust floats in the air as she walks between shelves"
+    }
+  },
+  {
+    "shot_id": "shot_002",
+    "scene_id": "scene_001",
+    "order": 2,
+    "script_text": "Dust floats in the air as she walks between shelves.",
+    "description": "Dust floats in the air as she walks between shelves",
+    "characters": [
+      "Dust"
+    ],
+    "location": "air as she walks between shelves",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 4,
+    "prompt": "cinematic noir, moody lighting. Dust floats in the air as she walks between shelves. Characters: Dust. Location: air as she walks between shelves. Continuity: previous context: A detective enters an old archive room; next context: She finds a glowing blue file on a wooden desk. Duration: 4 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_002_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "generated",
+    "continuity": {
+      "entry_context": "A detective enters an old archive room",
+      "exit_context": "She finds a glowing blue file on a wooden desk"
+    }
+  },
+  {
+    "shot_id": "shot_003",
+    "scene_id": "scene_001",
+    "order": 3,
+    "script_text": "She finds a glowing blue file on a wooden desk.",
+    "description": "She finds a glowing blue file on a wooden desk",
+    "characters": [
+      "She"
+    ],
+    "location": "wooden desk",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 4,
+    "prompt": "cinematic noir, moody lighting. She finds a glowing blue file on a wooden desk. Characters: She. Location: wooden desk. Continuity: previous context: Dust floats in the air as she walks between shelves; next context: Suddenly the lights flicker and go out. Duration: 4 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_003_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "generated",
+    "continuity": {
+      "entry_context": "Dust floats in the air as she walks between shelves",
+      "exit_context": "Suddenly the lights flicker and go out"
+    }
+  },
+  {
+    "shot_id": "shot_004",
+    "scene_id": "scene_001",
+    "order": 4,
+    "script_text": "Suddenly the lights flicker and go out.",
+    "description": "Suddenly the lights flicker and go out",
+    "characters": [
+      "Suddenly"
+    ],
+    "location": "unspecified location",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 4,
+    "prompt": "cinematic noir, moody lighting. Suddenly the lights flicker and go out. Characters: Suddenly. Location: unspecified location. Continuity: previous context: She finds a glowing blue file on a wooden desk; next context: End of video. Duration: 4 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_004_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "generated",
+    "continuity": {
+      "entry_context": "She finds a glowing blue file on a wooden desk",
+      "exit_context": "End of video"
+    }
+  }
+]

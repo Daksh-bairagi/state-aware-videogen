@@ -1,0 +1,10 @@
+{
+  "project_id": "project_b126c0ac",
+  "script": "A detective enters an old archive room. Dust floats in the air as she walks between shelves. She finds a glowing blue file on a wooden desk. Suddenly the lights flicker and go out.",
+  "global_style": "cinematic noir, moody lighting",
+  "current_version": 2,
+  "locked_audio_path": null,
+  "final_video_path": "final/final_v2.mp4",
+  "created_at": "2026-06-03T05:13:25.311362+00:00",
+  "updated_at": "2026-06-03T05:22:27.850286+00:00"
+}

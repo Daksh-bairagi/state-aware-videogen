@@ -1,0 +1,94 @@
+[
+  {
+    "shot_id": "shot_001",
+    "scene_id": "A1",
+    "order": 1,
+    "script_text": "A detective enters an old archive room.",
+    "description": "Wide shot. A lone detective, silhouetted against a dimly lit doorway, steps into a vast, dust-filled archive room. High contrast, deep shadows, cinematic noir style. Motes of dust catch the faint light from unseen windows.",
+    "characters": [
+      "Detective"
+    ],
+    "location": "Old Archive Room",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 6,
+    "prompt": "cinematic noir, moody lighting. Wide shot. A lone detective, silhouetted against a dimly lit doorway, steps into a vast, dust-filled archive room. High contrast, deep shadows, cinematic noir style. Motes of dust catch the faint light from unseen windows.. Characters: Detective. Location: Old Archive Room. Continuity: previous context: Start of video; next context: Medium tracking shot. The detective walks slowly down a narrow aisle between towering, dusty wooden shelves. Backlit dust motes dance in the air around her. Her face is partially obscured by shadow, reflecting the moody noir aesthetic.. Duration: 6 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_001_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "preserved",
+    "continuity": {
+      "entry_context": "Start of video",
+      "exit_context": "Medium tracking shot. The detective walks slowly down a narrow aisle between towering, dusty wooden shelves. Backlit dust motes dance in the air around her. Her face is partially obscured by shadow, reflecting the moody noir aesthetic."
+    }
+  },
+  {
+    "shot_id": "shot_002",
+    "scene_id": "A1",
+    "order": 2,
+    "script_text": "Dust floats in the air as she walks between shelves.",
+    "description": "Medium tracking shot. The detective walks slowly down a narrow aisle between towering, dusty wooden shelves. Backlit dust motes dance in the air around her. Her face is partially obscured by shadow, reflecting the moody noir aesthetic.",
+    "characters": [
+      "Detective"
+    ],
+    "location": "Old Archive Room",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 7,
+    "prompt": "cinematic noir, moody lighting. Medium tracking shot. The detective walks slowly down a narrow aisle between towering, dusty wooden shelves. Backlit dust motes dance in the air around her. Her face is partially obscured by shadow, reflecting the moody noir aesthetic.. Characters: Detective. Location: Old Archive Room. Continuity: previous context: Wide shot. A lone detective, silhouetted against a dimly lit doorway, steps into a vast, dust-filled archive room. High contrast, deep shadows, cinematic noir style. Motes of dust catch the faint light from unseen windows.; next context: Close-up shot. The detective's gloved hand reaches towards an old, worn wooden desk. On the desk, a single file glows with an ethereal, pulsing blue light, casting a stark, unnatural glow on the surrounding dust and wood. Moody, high-contrast lighting.. Duration: 7 seconds. Camera: cinematic, stable, coherent, smooth motion.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_002_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "preserved",
+    "continuity": {
+      "entry_context": "Wide shot. A lone detective, silhouetted against a dimly lit doorway, steps into a vast, dust-filled archive room. High contrast, deep shadows, cinematic noir style. Motes of dust catch the faint light from unseen windows.",
+      "exit_context": "Close-up shot. The detective's gloved hand reaches towards an old, worn wooden desk. On the desk, a single file glows with an ethereal, pulsing blue light, casting a stark, unnatural glow on the surrounding dust and wood. Moody, high-contrast lighting."
+    }
+  },
+  {
+    "shot_id": "shot_003",
+    "scene_id": "A1",
+    "order": 3,
+    "script_text": "She finds a glowing blue file on a wooden desk.",
+    "description": "Close-up shot. The detective's gloved hand reaches towards an old, worn wooden desk. On the desk, a single file glows with an ethereal, pulsing blue light, casting a stark, unnatural glow on the surrounding dust and wood. Moody, high-contrast lighting.",
+    "characters": [
+      "Detective"
+    ],
+    "location": "Old Archive Room",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 5,
+    "prompt": "cinematic noir, moody lighting. Close-up shot. The detective's gloved hand reaches towards an old, worn wooden desk. On the desk, a single file glows with an ethereal, pulsing blue light, casting a stark, unnatural glow on the surrounding dust and wood. Moody, high-contrast lighting.. Characters: Detective. Location: Old Archive Room. Continuity: previous context: Medium tracking shot. The detective walks slowly down a narrow aisle between towering, dusty wooden shelves. Backlit dust motes dance in the air around her. Her face is partially obscured by shadow, reflecting the moody noir aesthetic.; next context: Medium shot. The detective looks up sharply as the overhead lights in the archive room flicker violently, casting erratic shadows before plunging the entire room into near-total darkness. Only the faint blue glow from the file remains, emphasizing the noir mood.. Duration: 5 seconds. Camera: cinematic, stable, coherent, smooth motion. Apply this user edit only where relevant: Make the glowing file red instead of blue.. Preserve the same characters, location, camera language, duration, and visual continuity. Previous shot: Medium tracking shot. The detective walks slowly down a narrow aisle between towering, dusty wooden shelves. Backlit dust motes dance in the air around her. Her face is partially obscured by shadow, reflecting the moody noir aesthetic. Next shot: Medium shot. The detective looks up sharply as the overhead lights in the archive room flicker violently, casting erratic shadows before plunging the entire room into near-total darkness. Only the faint blue glow from the file remains, emphasizing the noir mood.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_003_v2.mp4",
+    "version": 2,
+    "status": "complete",
+    "last_action": "regenerated",
+    "continuity": {
+      "entry_context": "Medium tracking shot. The detective walks slowly down a narrow aisle between towering, dusty wooden shelves. Backlit dust motes dance in the air around her. Her face is partially obscured by shadow, reflecting the moody noir aesthetic.",
+      "exit_context": "Medium shot. The detective looks up sharply as the overhead lights in the archive room flicker violently, casting erratic shadows before plunging the entire room into near-total darkness. Only the faint blue glow from the file remains, emphasizing the noir mood."
+    }
+  },
+  {
+    "shot_id": "shot_004",
+    "scene_id": "A1",
+    "order": 4,
+    "script_text": "Suddenly the lights flicker and go out.",
+    "description": "Medium shot. The detective looks up sharply as the overhead lights in the archive room flicker violently, casting erratic shadows before plunging the entire room into near-total darkness. Only the faint blue glow from the file remains, emphasizing the noir mood.",
+    "characters": [
+      "Detective"
+    ],
+    "location": "Old Archive Room",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 6,
+    "prompt": "cinematic noir, moody lighting. Medium shot. The detective looks up sharply as the overhead lights in the archive room flicker violently, casting erratic shadows before plunging the entire room into near-total darkness. Only the faint blue glow from the file remains, emphasizing the noir mood.. Characters: Detective. Location: Old Archive Room. Continuity: previous context: Close-up shot. The detective's gloved hand reaches towards an old, worn wooden desk. On the desk, a single file glows with an ethereal, pulsing blue light, casting a stark, unnatural glow on the surrounding dust and wood. Moody, high-contrast lighting.; next context: End of video. Duration: 6 seconds. Camera: cinematic, stable, coherent, smooth motion. Apply this user edit only where relevant: Make the glowing file red instead of blue.. Preserve the same characters, location, camera language, duration, and visual continuity. Previous shot: Close-up shot. The detective's gloved hand reaches towards an old, worn wooden desk. On the desk, a single file glows with an ethereal, pulsing blue light, casting a stark, unnatural glow on the surrounding dust and wood. Moody, high-contrast lighting.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_004_v2.mp4",
+    "version": 2,
+    "status": "complete",
+    "last_action": "regenerated",
+    "continuity": {
+      "entry_context": "Close-up shot. The detective's gloved hand reaches towards an old, worn wooden desk. On the desk, a single file glows with an ethereal, pulsing blue light, casting a stark, unnatural glow on the surrounding dust and wood. Moody, high-contrast lighting.",
+      "exit_context": "End of video"
+    }
+  }
+]
