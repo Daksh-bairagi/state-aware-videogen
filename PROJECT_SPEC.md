@@ -1,95 +1,397 @@
-# Dynamic Script-To-Video Feedback Loop
+# StateAware Incremental Video Generator
 
 ## 1. Objective
 
 Build a state-aware incremental video generator that:
 
 1. Takes a user script.
-2. Breaks the script into scenes and shots.
-3. Generates a video as multiple shot-level assets.
+2. Breaks the script into scenes and shots using Gemini LLM.
+3. Generates video shot assets via Gemini Veo and Imagen APIs.
 4. Allows the user to give an edit instruction.
-5. Detects which shots are affected by the edit.
-6. Regenerates only the affected shots.
-7. Preserves unchanged shots and background music.
-8. Re-composes the final video.
+5. Detects which shots are affected by the edit using impact analysis.
+6. Regenerates only affected shots with strong continuity constraints.
+7. Preserves unchanged shots exactly.
+8. Re-composes the final video from shot assets.
 
-Core demo statement:
+**Core Innovation:**
+Shot-level state management with LLM-driven planning and regeneration. Instead of regenerating the whole video, track and regenerate only affected shots while preserving visual continuity.
 
-> Instead of regenerating the whole video after feedback, the system tracks video state at the shot level and regenerates only the affected parts.
-
-The priority is a working one-day MVP. The architecture should be simple, explainable, and technically strong enough for hackathons, interviews, and resume discussion.
-
----
-
-## 2. Core Innovation
-
-The core innovation is the **shot manifest**.
-
-The final video is not the source of truth. The source of truth is:
-
-```text
-script -> shot_manifest -> generated shot assets -> final video
-```
-
-Each shot stores:
-
-- The script text it represents
-- The generation prompt
-- Characters, location, and visual style
-- Duration
-- Generated asset path
-- Version number
-- Continuity metadata
-- Whether it was preserved or regenerated
-
-This makes partial regeneration possible.
-
-Interview talking point:
-
-> The generated video is an output artifact. The shot manifest is the editable state that allows localized regeneration.
+**Current Status:**
+- LLM-only pipeline (no fallback placeholders or deterministic parsing).
+- Strengthened prompts for consistency and accuracy.
+- Explicit IMMUTABLE/CHANGE regeneration constraints.
+- CLI runner and alternate Streamlit entrypoint for development.
 
 ---
 
-## 3. MVP Architecture
+## 2. Architecture Overview
 
-```text
-Streamlit UI
-   |
-   v
-LangGraph Workflow
-   |
-   +--> Script Parser
-   +--> Shot Planner
-   +--> Prompt Builder
-   +--> Shot Generator
-   +--> Video Composer
-   +--> Edit Analyzer
-   +--> Impact Analyzer
-   +--> Prompt Rewriter
-   +--> Shot Regenerator
-   +--> Recomposer
-   |
-   v
-Local Project Storage
-   |
-   +--> project_state.json
-   +--> shot_manifest.json
-   +--> shot videos/images
-   +--> final video
+```
+User Input (Script + Edit)
+    |
+    v
+LLM Pipeline (Gemini-only)
+    |
+    +-- Shot Planning (LLM)
+    +-- Edit Intent Analysis (LLM)
+    +-- Impact Analysis (LLM)
+    +-- Regeneration Prompt Builder (preserve constraints)
+    +-- Media Generation (Veo 2.0, Imagen 4.0)
+    |
+    v
+Shot Manifest State
+    |
+    +--> project_state.json (version, final path)
+    +--> shot_manifest.json (all shots with metadata)
+    +--> shots/ (video assets, .mp4 only)
+    +--> final/ (composed video)
+    |
+    v
+Streamlit UI + Video Preview
 ```
 
-Use:
+**Key Principles:**
+- **LLM-only pipeline**: All shot planning, edit analysis, and impact detection use Gemini. No fallback text placeholders or deterministic parsing.
+- **Strong regeneration constraints**: Rewrite prompts explicitly preserve location, characters, lighting, composition, and duration. Only the requested element changes.
+- **State-first design**: Shot manifest is the source of truth, not the video.
+- **Strict continuity**: Regenerated shots maintain visual consistency with originals.
+- **Deterministic, repeatable**: Prompts are structured to reduce drift and random redesign.
 
-- **Streamlit** for the UI
-- **LangGraph** for stateful workflow orchestration
-- **Gemini models** for script breakdown, edit understanding, and media generation where available
-- **MoviePy or FFmpeg** for video composition
-- **Local JSON files** for project state
-- **Gemini-based video/image generation first**, placeholder generation as a fallback
+---
 
-Senior engineering principle:
+## 3. Entry Points
 
-> LangGraph controls the workflow. The shot manifest owns the video state.
+### 3.1 Streamlit UI
+
+**app.py** — Main Streamlit application (original entrypoint)
+- Script input and generation
+- Video preview
+- Shot timeline display
+- User edit input and regeneration
+- Version tracking
+
+**ap.py** — Alternate Streamlit entrypoint (for cache-busting during development)
+- Identical to app.py but with visible timestamp banner
+- Forces fresh module imports on port 8502
+- Useful when code changes don't reflect in UI
+
+### 3.2 CLI Runner
+
+**run_pipeline.py** — Programmatic command-line interface for testing
+
+Commands:
+```bash
+python run_pipeline.py create --script "..." --style "..."
+python run_pipeline.py generate --project PROJECT_ID
+python run_pipeline.py edit --project PROJECT_ID --instruction "..."
+python run_pipeline.py status --project PROJECT_ID
+```
+
+Benefits:
+- Test regeneration without UI
+- Automate workflows
+- Easy CI/CD integration
+
+---
+
+## 4. Core Components
+
+### 4.1 LLM Pipeline Modules
+
+**src/shot_planner.py** — Script Breakdown
+- Input: script + global style
+- LLM call: Gemini breaks script into 3-6 coherent shots
+- Output: shot candidates with description, characters, location, duration, continuity context
+- Prompt: conservative, emphasizes visual concreteness and reproducibility
+
+**src/edit_analyzer.py** — User Edit Intent
+- Input: user instruction (e.g., "Make the file red")
+- LLM call: Gemini extracts intent
+- Output: scope (local/regional/global), target objects, target characters, target location, confidence (0-1), rationale
+- Prompt: conservative classification, returns structured output with reasoning
+
+**src/impact_analyzer.py** — Affected Shot Detection
+- Input: edit intent + shot manifest
+- LLM call: Gemini identifies affected shots
+- Output: list of shot IDs with scored impacts (0-1), not binary
+- Prompt: emphasizes "only mark if visually present"; returns confidence scores per shot
+
+**src/prompt_builder.py** — Prompt Construction & Regeneration
+- Functions:
+  - `build_prompt()`: Create initial shot generation prompt from metadata
+  - `apply_prompts()`: Populate generation and negative prompts for all shots
+  - `rewrite_prompt_for_edit()`: **Create regeneration prompt with IMMUTABLE/CHANGE sections**
+    - Lists IMMUTABLE constraints: location, characters, duration, visual style, lighting, composition, camera language
+    - Lists CHANGE section: only the requested edit
+    - Emphasizes: "Nearly identical except for the specified change"
+    - References original prompt for context
+
+**src/generator.py** — Shot Asset Generation
+- `generate_shot()`: Generate one shot asset
+  - Tries Gemini Veo 2.0 video generation
+  - Falls back to Imagen 4.0 + motion synthesis
+  - Raises RuntimeError if both fail (no fallback placeholders)
+- Helper functions:
+  - `build_gemini_video_prompt()`: structured prompt for Veo
+  - `build_gemini_image_motion_prompt()`: structured prompt for Imagen + motion
+  - `try_gemini_video()`: attempt video generation with error handling
+  - `try_gemini_image_plus_motion()`: attempt image+motion generation
+
+**src/composer.py** — Final Video Composition
+- Input: project state + shot manifest
+- Process: concatenate shot assets in order using imageio
+- Output: final video path
+- Raises RuntimeError if composition fails (no fallback text files)
+
+**src/regenerator.py** — Affected Shot Regeneration
+- Input: shot manifest + affected shot IDs + user edit
+- Process: regenerate only affected shots using rewritten prompts
+- Output: updated shot manifest with new asset paths
+- Preserves: unaffected shots and their asset paths
+
+### 4.2 Orchestration
+
+**src/graph.py** — Main Workflow Orchestration
+- `create_project_from_script()`: plan shots, save state
+- `generate_initial_video()`: generate all shots, compose final video
+- `apply_user_edit()`: analyze edit, find affected shots, regenerate, recompose
+
+### 4.3 Storage Layer
+
+**src/storage.py** — JSON-based project persistence
+- `projects/{project_id}/project_state.json` — high-level metadata
+- `projects/{project_id}/shot_manifest.json` — all shots with full metadata
+- `projects/{project_id}/shots/` — video/image assets
+- `projects/{project_id}/final/` — composed final video
+- `projects/{project_id}/audio/` — locked audio (if applicable)
+
+**src/state.py** — TypedDicts and state models
+- `Shot`: shot-level metadata (ID, description, characters, location, version, status, asset path, continuity)
+- `ProjectState`: project-level state (ID, script, style, version, timestamps)
+- `VideoGraphState`: in-memory workflow state
+
+### 4.4 Gemini Integration
+
+**src/gemini_agent.py** — LLM client helpers
+- `get_gemini_api_key()`: load from .env
+- `get_gemini_agent()`: instantiate LangChain ChatGoogleGenerativeAI
+- `get_genai_client()`: instantiate Google GenAI SDK client
+- `ask_gemini_agent()`: call LLM with system+user prompts
+- `ask_gemini_json()`: call LLM and parse JSON from response
+
+---
+
+## 5. Prompt Engineering Strategy
+
+### 5.1 Shot Planning Prompt
+- Conservative: create the smallest set of shots that covers the story.
+- Concrete: descriptions must be visual and generation-ready.
+- Continuous: maintain character and location consistency.
+- Rules-based: enforce min/max shot count and duration constraints.
+
+### 5.2 Edit Intent Prompt
+- Conservative: classify to the smallest scope (local before global).
+- Structured: returns scope, confidence, rationale, not just type.
+- Confidence metric: 0-1, helps downstream filtering.
+
+### 5.3 Impact Analysis Prompt
+- Conservative: "Only mark a shot if the change is visually present."
+- Scored: returns impact_score per shot, not just binary.
+- Reasoning: explains why each shot is affected.
+
+### 5.4 Regeneration Prompt (KEY CHANGE)
+- **Explicit preservation:** Lists all immutable aspects from original shot.
+- **Explicit change:** Isolates the requested edit.
+- **Strong emphasis:** "Nearly identical except for the specified change."
+- **Reference context:** Original prompt provided for model reference.
+- **Result:** Regenerated shots maintain visual continuity with originals.
+
+---
+
+## 6. Data Models
+
+### 6.1 Shot (TypedDict)
+```python
+{
+  "shot_id": "shot_001",
+  "scene_id": "scene_001",
+  "order": 1,
+  "script_text": "A detective enters...",
+  "description": "Wide shot of detective entering dark archive...",
+  "characters": ["detective"],
+  "location": "archive room",
+  "visual_style": "noir, moody lighting",
+  "duration_sec": 4,
+  "prompt": "Generated prompt...",
+  "negative_prompt": "blurry, distorted...",
+  "asset_path": "shots/shot_001_v1.mp4",
+  "version": 1,
+  "status": "complete",
+  "last_action": "generated",
+  "continuity": {
+    "entry_context": "Start of video",
+    "exit_context": "Detective finds file"
+  }
+}
+```
+
+### 6.2 ProjectState (TypedDict)
+```python
+{
+  "project_id": "project_abc123",
+  "script": "A detective enters an archive room...",
+  "global_style": "noir, moody lighting",
+  "current_version": 2,
+  "locked_audio_path": null,
+  "final_video_path": "final/final_v2.mp4",
+  "created_at": "2026-06-03T10:00:00",
+  "updated_at": "2026-06-03T10:30:00"
+}
+```
+
+---
+
+## 7. Workflow Flows
+
+### 7.1 Initial Generation Flow
+```
+create_project_from_script(script, style)
+  -> plan_shots(script, style)
+       -> ask_gemini_json(system_prompt, user_prompt) → shot candidates
+       -> apply_prompts(shots, style) → shots with generation prompts
+  -> save_project_state() + save_shot_manifest()
+  -> return graph_state
+
+generate_initial_video(project_id)
+  -> load_project_state() + load_shot_manifest()
+  -> for each shot:
+       -> generate_shot(shot)
+            -> try_gemini_video() or try_gemini_image_plus_motion()
+       -> update shot asset_path and status
+  -> save_shot_manifest()
+  -> compose_video(project_state, shots)
+  -> save_project_state()
+  -> return graph_state
+```
+
+### 7.2 Edit Flow
+```
+apply_user_edit(project_id, instruction)
+  -> load_project_state() + load_shot_manifest()
+  -> analyze_edit(instruction)
+       -> ask_gemini_json(system_prompt, user_prompt) → edit_intent
+  -> find_affected_shots(edit_intent, shots)
+       -> ask_gemini_json(system_prompt, user_prompt) → affected_shot_ids
+  -> increment project version
+  -> regenerate_affected_shots(shots, affected_shot_ids, instruction)
+       -> for each affected shot:
+            -> rewrite_prompt_for_edit(shot, instruction, prev_shot, next_shot)
+                 → prompt with IMMUTABLE/CHANGE sections
+            -> generate_shot(updated_shot)
+       -> return updated_shots
+  -> save_shot_manifest(updated_shots)
+  -> compose_video(project_state, updated_shots)
+  -> save_project_state()
+  -> return graph_state
+```
+
+---
+
+## 8. Key Design Decisions
+
+| Decision | Rationale |
+|----------|-----------|
+| **LLM-only (no fallbacks)** | Forces clean API integration; no silent degradation to placeholders |
+| **Shot manifest as source of truth** | Enables fine-grained regeneration and state replay |
+| **Explicit IMMUTABLE/CHANGE prompts** | Dramatically reduces unwanted shot redesign during edits |
+| **Local JSON storage** | Simple, debuggable, no DB setup required |
+| **Scored impact analysis** | More nuanced than binary; supports future filtering |
+| **Separate regen prompts** | Edits reuse different LLM prompts than initial generation |
+| **Structured LLM outputs** | JSON responses reduce parsing errors and hallucination |
+
+---
+
+## 9. File Structure
+
+```
+state-aware-videogen/
+  ├── app.py                 # Main Streamlit UI
+  ├── ap.py                  # Alternate Streamlit entrypoint (dev)
+  ├── run_pipeline.py        # CLI runner
+  ├── .env                   # Gemini API key
+  ├── pyproject.toml         # Dependencies
+  ├── src/
+  │   ├── __init__.py
+  │   ├── graph.py           # Orchestration (create/generate/edit)
+  │   ├── shot_planner.py    # Script → shots (LLM)
+  │   ├── edit_analyzer.py   # Edit intent extraction (LLM)
+  │   ├── impact_analyzer.py # Affected shot detection (LLM)
+  │   ├── prompt_builder.py  # Prompt construction + regeneration
+  │   ├── generator.py       # Shot asset generation (Veo/Imagen)
+  │   ├── regenerator.py     # Affected shot regeneration
+  │   ├── composer.py        # Final video composition
+  │   ├── gemini_agent.py    # LLM client helpers
+  │   ├── storage.py         # Project persistence
+  │   └── state.py           # TypedDicts and state models
+  ├── projects/
+  │   └── {project_id}/
+  │       ├── project_state.json
+  │       ├── shot_manifest.json
+  │       ├── shots/
+  │       ├── final/
+  │       └── audio/
+  └── README.md
+```
+
+---
+
+## 10. Future Enhancements
+
+**Phase 2: NLP Pre-pass**
+- Extract edit intent locally before LLM call (reduce API calls).
+- Score shots using semantic similarity before calling Gemini.
+- Gemini used only for low-confidence or ambiguous cases.
+
+**Phase 3: Impact Scoring**
+- Return scored impacts per shot (0-1).
+- Only regenerate shots above configurable threshold (e.g., >0.5).
+- Track "maybe affected" shots separately.
+
+**Phase 4: Consistency Validation**
+- Post-regeneration comparison check.
+- Verify shot identity preserved (same characters, location, style).
+- Retry or flag inconsistent regenerations.
+
+**Phase 5: Edit History & Rollback**
+- Track all edits and regenerations.
+- Enable rollback to previous versions.
+- Learn from edit patterns (which edits work, which fail).
+
+---
+
+## 11. Technical Stack
+
+| Component | Tool |
+|-----------|------|
+| UI | Streamlit |
+| LLM (text) | Gemini (via LangChain) |
+| Video generation | Gemini Veo 2.0 |
+| Image generation | Gemini Imagen 4.0 |
+| Video composition | imageio |
+| State persistence | Local JSON files |
+| Task orchestration | Plain Python functions (in `src/graph.py`) |
+
+---
+
+## 12. Known Limitations
+
+- **No video segmentation:** Assumes Gemini can generate full shots in one call.
+- **Sequential processing:** Doesn't parallelize shot generation (future optimization).
+- **No audio handling:** Locked audio path is planned but not yet implemented.
+- **Deterministic mode unavailable:** Can't run the pipeline without GEMINI_API_KEY (by design).
+- **No undo/rollback:** Currently can't revert to previous versions (Phase 5 feature).
+
+
 
 ---
 
