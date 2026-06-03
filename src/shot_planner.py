@@ -58,20 +58,36 @@ def plan_shot_candidates_with_llm(
     min_shots: int,
     max_shots: int,
 ) -> list[dict[str, Any]]:
-    """Ask Gemini for structured shot candidates."""
+    """Ask Gemini for structured shot candidates.
+
+    The prompt pushes for conservative, sequential, visually concrete shots with
+    continuity and duration constraints so the downstream generator has stable
+    input.
+    """
 
     system_prompt = (
-        "You are a film shot-planning agent. Convert scripts into a concise shot list. "
-        "Return JSON only. Do not include markdown."
+        "You are a senior film shot-planning agent. Break the script into a small, "
+        "ordered set of cinematic shots. Preserve story order, maintain character and "
+        "location continuity, and choose shot boundaries that are easy to generate. "
+        "Return JSON only. No markdown, no commentary."
     )
     user_prompt = (
         f"Script:\n{script}\n\n"
         f"Global visual style: {global_style}\n"
         f"Create between {min_shots} and {max_shots} shots.\n"
-        "Return a JSON array. Each item must have: scene_id, order, script_text, "
-        "description, characters, location, duration_sec. "
-        "Descriptions must be visual and specific enough for image/video generation. "
-        "characters must be an array of strings. duration_sec must be 4 to 8."
+        "Each shot must represent one coherent visual moment. Prefer the smallest "
+        "set of shots that still covers the story clearly. Do not invent new events. "
+        "Do not repeat the same visual moment in multiple shots unless necessary for continuity.\n"
+        "Return a JSON array. Each item must have exactly these fields: scene_id, order, "
+        "script_text, description, characters, location, duration_sec.\n"
+        "Rules:\n"
+        "- description must be visual, concrete, and camera-ready\n"
+        "- script_text must map to the script segment used for that shot\n"
+        "- characters must be an array of strings, ordered by importance\n"
+        "- location must be a stable scene location phrase\n"
+        "- duration_sec must be between 4 and 8 inclusive\n"
+        "- keep shot descriptions consistent with the global style and adjacent shots\n"
+        "- use simple, reproducible visual language that can be generated reliably"
     )
 
     raw = ask_gemini_json(system_prompt, user_prompt)

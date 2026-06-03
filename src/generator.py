@@ -198,25 +198,37 @@ def write_provider_error(output_path: Path, message: str, exc: Exception) -> Non
 
 
 def build_gemini_video_prompt(shot: Shot, output_path: Path) -> str:
-    """Build the non-LangGraph Gemini prompt for a shot video attempt."""
+    """Build the non-LangGraph Gemini prompt for a shot video attempt.
+
+    The prompt should preserve the exact shot identity and ask the provider to
+    render a single coherent shot matching the existing metadata.
+    """
 
     return (
-        f"Create a {shot['duration_sec']}-second video asset for {shot['shot_id']}.\n"
-        f"Description: {shot['description']}\n"
-        f"Prompt: {shot['prompt']}\n"
+        f"Create one {shot['duration_sec']}-second cinematic video shot for {shot['shot_id']}.\n"
+        f"Shot description: {shot['description']}\n"
+        f"Primary prompt: {shot['prompt']}\n"
         f"Negative prompt: {shot['negative_prompt']}\n"
+        f"Preserve the exact shot identity, characters, location, lighting, and camera direction.\n"
+        f"Render a single coherent shot with no unrelated redesign or extra scenes.\n"
         f"Output target: {output_path.name}"
     )
 
 
 def build_gemini_image_motion_prompt(shot: Shot, output_path: Path) -> str:
-    """Build the non-LangGraph Gemini prompt for image-plus-motion fallback."""
+    """Build the non-LangGraph Gemini prompt for image-plus-motion fallback.
+
+    The prompt asks for a tightly matched still image plus subtle motion that
+    stays faithful to the original shot.
+    """
 
     return (
-        f"Create a still image concept and simple camera motion for {shot['shot_id']}.\n"
-        f"Description: {shot['description']}\n"
-        f"Prompt: {shot['prompt']}\n"
+        f"Create a still image concept and subtle camera motion for {shot['shot_id']}.\n"
+        f"Shot description: {shot['description']}\n"
+        f"Primary prompt: {shot['prompt']}\n"
         f"Negative prompt: {shot['negative_prompt']}\n"
+        f"Preserve the same shot composition, character appearance, location, and visual mood.\n"
+        f"Use only gentle motion that supports the existing shot rather than redesigning it.\n"
         f"Duration: {shot['duration_sec']} seconds.\n"
         f"Output target: {output_path.name}"
     )

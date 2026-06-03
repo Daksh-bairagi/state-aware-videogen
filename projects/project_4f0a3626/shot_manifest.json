@@ -1,0 +1,94 @@
+[
+  {
+    "shot_id": "shot_001",
+    "scene_id": "gym_entry_01",
+    "order": 1,
+    "script_text": "an indian boy entering the gym",
+    "description": "Low-angle shot of an Indian boy's silhouette pushing open a heavy, industrial gym door. A sliver of harsh, moody light from outside creates a halo around him as he steps into the dark, cavernous gym interior.",
+    "characters": [
+      "Indian boy"
+    ],
+    "location": "Gym entrance",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 5,
+    "prompt": "Create one cinematic shot only. Global style: cinematic noir, moody lighting. Primary action: Low-angle shot of an Indian boy's silhouette pushing open a heavy, industrial gym door. A sliver of harsh, moody light from outside creates a halo around him as he steps into the dark, cavernous gym interior.. Characters: Indian boy. Location: Gym entrance. Continuity before this shot: Start of video. Continuity after this shot: Close-up on the Indian boy's hands gripping heavy 35kg dumbbells. Veins are prominent on his forearms, glistening with sweat under a single, focused overhead light. The background is plunged into deep shadow.. Duration: 5 seconds. Camera direction: keep a single continuous shot, with coherent framing, consistent lighting, clean subject identity, and no unrelated scene redesign. Prefer specific visual details over vague style words.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_001_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "preserved",
+    "continuity": {
+      "entry_context": "Start of video",
+      "exit_context": "Close-up on the Indian boy's hands gripping heavy 35kg dumbbells. Veins are prominent on his forearms, glistening with sweat under a single, focused overhead light. The background is plunged into deep shadow."
+    }
+  },
+  {
+    "shot_id": "shot_002",
+    "scene_id": "shoulder_press_01",
+    "order": 2,
+    "script_text": "then shoulder pressing 35kg dumbels",
+    "description": "Close-up on the Indian boy's hands gripping heavy 35kg dumbbells. Veins are prominent on his forearms, glistening with sweat under a single, focused overhead light. The background is plunged into deep shadow.",
+    "characters": [
+      "Indian boy"
+    ],
+    "location": "Gym weight area",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 6,
+    "prompt": "Create one cinematic shot only. Global style: cinematic noir, moody lighting. Primary action: Close-up on the Indian boy's hands gripping heavy 35kg dumbbells. Veins are prominent on his forearms, glistening with sweat under a single, focused overhead light. The background is plunged into deep shadow.. Characters: Indian boy. Location: Gym weight area. Continuity before this shot: Low-angle shot of an Indian boy's silhouette pushing open a heavy, industrial gym door. A sliver of harsh, moody light from outside creates a halo around him as he steps into the dark, cavernous gym interior.. Continuity after this shot: Medium shot of the Indian boy, straining with effort, completing the final rep of a shoulder press. His face is grimaced, muscles tensed, dramatically lit from the side, casting sharp, noir-style shadows.. Duration: 6 seconds. Camera direction: keep a single continuous shot, with coherent framing, consistent lighting, clean subject identity, and no unrelated scene redesign. Prefer specific visual details over vague style words.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_002_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "preserved",
+    "continuity": {
+      "entry_context": "Low-angle shot of an Indian boy's silhouette pushing open a heavy, industrial gym door. A sliver of harsh, moody light from outside creates a halo around him as he steps into the dark, cavernous gym interior.",
+      "exit_context": "Medium shot of the Indian boy, straining with effort, completing the final rep of a shoulder press. His face is grimaced, muscles tensed, dramatically lit from the side, casting sharp, noir-style shadows."
+    }
+  },
+  {
+    "shot_id": "shot_003",
+    "scene_id": "shoulder_press_02",
+    "order": 3,
+    "script_text": "then shoulder pressing 35kg dumbels",
+    "description": "Medium shot of the Indian boy, straining with effort, completing the final rep of a shoulder press. His face is grimaced, muscles tensed, dramatically lit from the side, casting sharp, noir-style shadows.",
+    "characters": [
+      "Indian boy"
+    ],
+    "location": "Gym weight area",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 7,
+    "prompt": "Create one cinematic shot only. Global style: cinematic noir, moody lighting. Primary action: Medium shot of the Indian boy, straining with effort, completing the final rep of a shoulder press. His face is grimaced, muscles tensed, dramatically lit from the side, casting sharp, noir-style shadows.. Characters: Indian boy. Location: Gym weight area. Continuity before this shot: Close-up on the Indian boy's hands gripping heavy 35kg dumbbells. Veins are prominent on his forearms, glistening with sweat under a single, focused overhead light. The background is plunged into deep shadow.. Continuity after this shot: Close-up on the Indian boy's face as he gulps water from a shaker bottle. Droplets cling to his lips and chin. His eyes are closed in exhaustion, lit by a soft, diffused light from an unseen source, contrasting with the previous harsh lighting.. Duration: 7 seconds. Camera direction: keep a single continuous shot, with coherent framing, consistent lighting, clean subject identity, and no unrelated scene redesign. Prefer specific visual details over vague style words.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_003_v1.mp4",
+    "version": 1,
+    "status": "complete",
+    "last_action": "preserved",
+    "continuity": {
+      "entry_context": "Close-up on the Indian boy's hands gripping heavy 35kg dumbbells. Veins are prominent on his forearms, glistening with sweat under a single, focused overhead light. The background is plunged into deep shadow.",
+      "exit_context": "Close-up on the Indian boy's face as he gulps water from a shaker bottle. Droplets cling to his lips and chin. His eyes are closed in exhaustion, lit by a soft, diffused light from an unseen source, contrasting with the previous harsh lighting."
+    }
+  },
+  {
+    "shot_id": "shot_004",
+    "scene_id": "drink_water_01",
+    "order": 4,
+    "script_text": "and afterwads drinking water from shaker",
+    "description": "Close-up on the Indian boy's face as he gulps water from a shaker bottle. Droplets cling to his lips and chin. His eyes are closed in exhaustion, lit by a soft, diffused light from an unseen source, contrasting with the previous harsh lighting.",
+    "characters": [
+      "Indian boy"
+    ],
+    "location": "Gym weight area",
+    "visual_style": "cinematic noir, moody lighting",
+    "duration_sec": 5,
+    "prompt": "You are REGENERATING an existing shot, not creating a new one.\nOriginal generation prompt (reference only): Create one cinematic shot only. Global style: cinematic noir, moody lighting. Primary action: Close-up on the Indian boy's face as he gulps water from a shaker bottle. Droplets cling to his lips and chin. His eyes are closed in exhaustion, lit by a soft, diffused light from an unseen source, contrasting with the previous harsh lighting.. Characters: Indian boy. Location: Gym weight area. Continuity before this shot: Medium shot of the Indian boy, straining with effort, completing the final rep of a shoulder press. His face is grimaced, muscles tensed, dramatically lit from the side, casting sharp, noir-style shadows.. Continuity after this shot: End of video. Duration: 5 seconds. Camera direction: keep a single continuous shot, with coherent framing, consistent lighting, clean subject identity, and no unrelated scene redesign. Prefer specific visual details over vague style words.\n\nIMMUTABLE (preserve exactly):\n- Location: Gym weight area\n- Characters: Indian boy (same identities, clothing, poses)\n- Duration: 5 seconds\n- Visual style: cinematic noir, moody lighting\n- Shot structure: Close-up on the Indian boy's face as he gulps water from a shaker bottle. Droplets cling to his lips and chin. His eyes are closed in exhaustion, lit by a soft, diffused light from an unseen source, contrasting with the previous harsh lighting.\n- Camera language: from original prompt\n- Lighting: consistent with original mood\n- Composition: same framing, same subject placement\n\nCHANGE (minimal edit only):\n- Apply this user edit: change the shaker lid colour  to black\n- This is a localized adjustment, not a redesign\n- Modify only what the edit requests\n- Keep everything else visually identical to the original\n\nCONTINUITY:\nPrevious shot ends with: Medium shot of the Indian boy, straining with effort, completing the final rep of a shoulder press. His face is grimaced, muscles tensed, dramatically lit from the side, casting sharp, noir-style shadows.\n\nCRITICAL INSTRUCTION:\nGenerate a version of the same shot with ONLY the requested edit applied. Do not redesign the composition, framing, camera angle, or visual mood. A side-by-side comparison with the original should show the shot nearly identical except for the specified change.",
+    "negative_prompt": "blurry, distorted faces, unreadable text, inconsistent lighting, low quality",
+    "asset_path": "shots/shot_004_v2.mp4",
+    "version": 2,
+    "status": "complete",
+    "last_action": "regenerated",
+    "continuity": {
+      "entry_context": "Medium shot of the Indian boy, straining with effort, completing the final rep of a shoulder press. His face is grimaced, muscles tensed, dramatically lit from the side, casting sharp, noir-style shadows.",
+      "exit_context": "End of video"
+    }
+  }
+]
